@@ -1,0 +1,264 @@
+#home-page {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #111015;
+  transition: 0.5s;
+}
+
+.chance {
+  color: #fff;
+}
+
+nav {
+  backdrop-filter: blur(34px);
+}
+
+form {
+  position: relative;
+}
+form input {
+  --bs-body-bg: #1e1e1e;
+  --bs-border-color: #1e1e1e;
+}
+.max-temp {
+  font-weight: 700;
+}
+
+.min-temp {
+  color: #b8b8b8;
+  font-weight: 500;
+}
+.special {
+  color: rgba(255, 0, 0, 0.626);
+}
+
+form p {
+  position: absolute;
+  color: #fff;
+  top: 50%;
+  left: 25px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.form-control:focus {
+  box-shadow: none;
+  border-color: #1e1e1e;
+}
+form input:focus + p {
+  display: none;
+}
+
+form input {
+  color: #fff;
+}
+
+.form-control {
+  --bs-body-color: #fff;
+  padding-inline: 20px;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+.day-cards .day-card {
+  background-color: #1e1e1e;
+  color: #fff;
+  text-align: center;
+}
+.day-cards .first-day-card img {
+  width: 25%;
+}
+.day-cards img {
+  width: 20%;
+}
+
+.day-cards .day-card .day-name {
+  border-bottom: 1px solid #eee;
+}
+.day-cards .first-day-card {
+  background-color: #bbd7ec;
+}
+#chanceOfRainChart {
+  background-color: transparent;
+  backdrop-filter: blur(100px);
+}
+
+.country-name {
+  font-size: 26px;
+  color: #fff;
+}
+
+.progress-container {
+  position: relative;
+  text-align: center;
+}
+
+.progress-container h6 {
+  color: #eee;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.progress-svg {
+  transform: rotate(-90deg);
+}
+
+.progress-circle {
+  fill: none;
+  stroke: #c51010;
+  stroke-width: 10;
+  stroke-dasharray: 0, 339;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s ease-out;
+}
+.progress-circle-two {
+  fill: none;
+  stroke: #4caf50;
+  stroke-width: 10;
+  stroke-dasharray: 0, 339;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s ease-out;
+}
+.progress-container .progress-text h2 {
+  font-size: 24px;
+}
+
+.progress-container .progress-text,
+.progress-text-two {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+}
+
+button {
+  color: #fff;
+  background-color: #474747;
+  transition: 0.5s;
+}
+
+button:hover {
+  background-color: #1e1e1e;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  --w: 10ch;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  line-height: 1.4em;
+  letter-spacing: var(--w);
+  width: var(--w);
+  overflow: hidden;
+  white-space: nowrap;
+  color: #0000;
+  text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+    calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+    calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+    calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+    calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  animation: l20 2s infinite linear;
+}
+.loader:before {
+  content: "Loading...";
+}
+
+@keyframes l20 {
+  9.09% {
+    text-shadow: calc(0 * var(--w)) -10px #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  }
+  18.18% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) -10px #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  }
+  27.27% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) -10px #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  }
+  36.36% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) -10px #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  }
+  45.45% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) -10px #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  }
+  54.54% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) -10px #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  }
+  63.63% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) -10px #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  }
+  72.72% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) -10px #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+  }
+  81.81% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) -10px #000, calc(-9 * var(--w)) 0 #000;
+  }
+  90.90% {
+    text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+      calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+      calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+      calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+      calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) -10px #000;
+  }
+}
+.loading-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: #eee;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 1;
+  visibility: visible;
+  z-index: 99;
+}
+
+.country-name img {
+  width: 60px;
+}

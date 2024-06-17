@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div id="home-page">
+      <div class="loading-page">
+        <div class="loader"></div>
+      </div>
+      <header>
+        <div class="container">
+          <div
+            class="text-center d-flex justify-content-center country-name pt-3 align-items-center pb-3"
+          >
+            <p class="m-0"></p>
+            <span class="pe-2"></span>
+            <img src="" alt="" />
+          </div>
+
+          <form class="d-flex" role="search">
+            <input
+              class="form-control rounded-3 py-3"
+              type="search"
+              aria-label="Search"
+            />
+            <p class="place-h">
+              <i class="fa-solid fa-magnifying-glass"></i> Search City
+            </p>
+          </form>
+          <button
+            class="btn-group w-100 justify-content-center py-2 my-3 border-0 align-items-center"
+          >
+            Current location
+            <i class="ps-2 fa-solid fa-location-crosshairs"></i>
+          </button>
+        </div>
+      </header>
+      <section class="days">
+        <div class="container">
+          <div class="row day-cards align-items-center">
+            <div class="p-3 col-lg-4 col-md-12">
+              <div class="first-day-card d-cards rounded-4 p-3">
+                <div
+                  class="day-head text-center pb-3 d-flex align-items-center justify-content-between"
+                >
+                  <div class="day-name"></div>
+                  <div class="day-time"></div>
+                </div>
+                <div
+                  class="day-status d-flex align-items-center justify-content-between pb-3"
+                >
+                  <div class="day-temp">
+                    <div class="max-temp pb-2"></div>
+                    <div class="min-temp special"></div>
+                  </div>
+                  <img src="" class="py-4" />
+                </div>
+                <div
+                  class="day-details d-flex align-items-center gap-3 justify-content-between"
+                >
+                  <div class="first-col">
+                    <p class="press">Pressure: <span></span>MB</p>
+                    <p class="humidity">status: <span></span></p>
+                  </div>
+                  <div class="second-col">
+                    <p class="s-rise">Sunrise: <span></span></p>
+                    <p class="s-set">Sunrset: <span></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 col-lg-2 col-md-4 col-sm-6">
+              <div class="day-card d-cards rounded-4 py-2">
+                <div class="day-name pb-2"></div>
+                <div class="day-status">
+                  <img src="" class="py-4" />
+                </div>
+                <div class="day-temp">
+                  <div class="max-temp pb-2"></div>
+                  <div class="min-temp"></div>
+                </div>
+              </div>
+            </div>
+            <div class="p-3 col-lg-2 col-md-4 col-sm-6">
+              <div class="day-card d-cards rounded-4 py-2">
+                <div class="day-name pb-2"></div>
+                <div class="day-status">
+                  <img src="" class="py-4" />
+                </div>
+                <div class="day-temp">
+                  <div class="max-temp pb-2"></div>
+                  <div class="min-temp"></div>
+                </div>
+              </div>
+            </div>
+            <div class="p-3 col-lg-2 col-md-4 col-sm-6">
+              <div class="day-card d-cards rounded-4 py-2">
+                <div class="day-name pb-2"></div>
+                <div class="day-status">
+                  <img src="" class="py-4" />
+                </div>
+                <div class="day-temp">
+                  <div class="max-temp pb-2"></div>
+                  <div class="min-temp"></div>
+                </div>
+              </div>
+            </div>
+            <div class="p-3 col-lg-2 col-md-4 col-sm-6">
+              <div class="day-card d-cards rounded-4 py-2">
+                <div class="day-name pb-2"></div>
+                <div class="day-status">
+                  <img src="" class="py-4" />
+                </div>
+                <div class="day-temp">
+                  <div class="max-temp pb-2"></div>
+                  <div class="min-temp"></div>
+                </div>
+              </div>
+            </div>
+            <div class="p-3 col-lg-2 col-md-4 col-sm-6">
+              <div class="day-card d-cards rounded-4 py-2">
+                <div class="day-name pb-2"></div>
+                <div class="day-status">
+                  <img src="" class="py-4" />
+                </div>
+                <div class="day-temp">
+                  <div class="max-temp pb-2"></div>
+                  <div class="min-temp"></div>
+                </div>
+              </div>
+            </div>
+            <div class="p-3 col-lg-2 col-md-4 col-sm-6">
+              <div class="day-card d-cards rounded-4 py-2">
+                <div class="day-name pb-2"></div>
+                <div class="day-status">
+                  <img src="" class="py-4" />
+                </div>
+                <div class="day-temp">
+                  <div class="max-temp pb-2"></div>
+                  <div class="min-temp"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-5 mb-lg-0">
+              <h5 class="chance">Chance Of Rain</h5>
+              <canvas id="chanceOfRainChart"></canvas>
+            </div>
+            <div class="progress-container mb-5 mb-lg-0 col-lg-2 col-md-6">
+              <h6>Humidity</h6>
+              <svg
+                class="progress-svg"
+                width="150"
+                height="150"
+                viewBox="0 0 150 150"
+              >
+                <circle class="progress-circle" cx="75" cy="75" r="54"></circle>
+              </svg>
+              <div class="progress-text">
+                <p>0%</p>
+              </div>
+            </div>
+            <div class="progress-container mb-5 mb-lg-0 col-lg-2 col-md-6">
+              <h6>Clouds</h6>
+              <svg
+                class="progress-svg"
+                width="150"
+                height="150"
+                viewBox="0 0 150 150"
+              >
+                <circle
+                  class="progress-circle-two"
+                  cx="75"
+                  cy="75"
+                  r="54"
+                ></circle>
+              </svg>
+              <div class="progress-text-two">
+                <p>0%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="container"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
