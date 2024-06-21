@@ -5,7 +5,8 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #111015;
+  /* background-color: #111015; */
+  z-index: 1;
   transition: 0.5s;
 }
 
@@ -149,7 +150,6 @@ button:hover {
   background-color: #1e1e1e;
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   --w: 10ch;
   font-weight: bold;
@@ -263,4 +263,32 @@ button:hover {
   width: 60px;
   height: 40px;
   object-fit: cover;
+}
+
+.background-images img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  transition: 0.5s ease-in-out;
+}
+
+#home-page::before {
+  content: "";
+  background-color: #00000054;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.background-images img.showing {
+  opacity: 1;
+}
+
+.background-images img.hidden {
+  opacity: 0;
 }
