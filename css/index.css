@@ -5,7 +5,7 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  /* background-color: #111015; */
+  background-color: #111015;
   z-index: 1;
   transition: 0.5s;
 }
@@ -292,3 +292,12 @@ button:hover {
 .background-images img.hidden {
   opacity: 0;
 }
+.humidity {
+  max-width: 200px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+}
+
