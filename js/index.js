@@ -1,4 +1,7 @@
 let flagImg = document.querySelector(".country-name img");
+let backgroundImages = Array.from(
+  document.querySelectorAll(".background-images img")
+);
 let loadingPage = document.querySelector(".loading-page");
 let home = document.getElementById("home-page");
 let input = document.querySelector("form input");
@@ -52,6 +55,7 @@ async function getWeather(city) {
     let secondResult = await firstResult.json();
     finalResult = secondResult;
     displayBackGrounds();
+
     clear(finalResult);
     display();
   } catch (error) {}
@@ -212,101 +216,6 @@ function display() {
     getCountryData(finalResult.location.country);
   }
 }
-function displayBackGrounds() {
-  let text = finalResult.forecast.forecastday[0].hour[1].condition.text;
-  if (text.trim() === "Clear") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/Clear.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Cloudy") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/Cloudy.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Sunny") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/Sunny.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Partly Cloudy") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/Partly Cloudy.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Patchy rain nearby") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/Patchy rain nearby.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Mist") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/Mist.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Fog") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/Fog.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Light drizzle") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/light rain.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Light rain") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/Sunny.jpg");
-  transition: 0.5s;
-    ;
-`;
-  } else if (text.trim() === "Thundery outbreaks in nearby") {
-    home.style.cssText = `  background-image: linear-gradient(
-      rgba(50, 50, 50, 0.52),
-      rgba(50, 50, 50, 0.52)
-    ),
-    url("./images/thunder.jpg");
-  transition: 0.5s;
-    ;
-`;
-  }
-}
-
 button.addEventListener("click", () => {
   navigator.geolocation.getCurrentPosition((position) => {
     const { latitude, longitude } = position.coords;
@@ -320,3 +229,32 @@ button.addEventListener("click", () => {
   });
 });
 getWeather("london");
+
+const backgrounds = {
+  Clear: 0,
+  Cloudy: 1,
+  Sunny: 2,
+  "Partly Cloudy": 3,
+  "Patchy rain nearby": 4,
+  Mist: 5,
+  Fog: 6,
+  "Light drizzle": 7,
+  "Light rain": 8,
+  "Thundery outbreaks in nearby": 9,
+  "Light rain shower": 10,
+};
+
+let New = new Map(Object.entries(backgrounds));
+
+function displayBackGrounds() {
+  for (let x of New) {
+    let text = finalResult.forecast.forecastday[0].hour[1].condition.text;
+    let lastImage = document.querySelector(".showing");
+    if (text.trim() === x[0]) {
+      lastImage.classList.remove("showing");
+      lastImage.classList.add("hidden");
+      backgroundImages[x[1]].classList.remove("hidden");
+      backgroundImages[x[1]].classList.add("showing");
+    }
+  }
+}
