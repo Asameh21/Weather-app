@@ -300,4 +300,3 @@ function displayBackGrounds() {
   }
 }
 getWeather("russia");
-
