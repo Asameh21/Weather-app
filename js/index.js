@@ -27,21 +27,65 @@ let button = document.querySelector("button");
 var chanceOfRainChart = new Chart(ctx, {
   type: "line",
   data: {
-    labels: [],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
       {
         label: "Chance Of Rain",
         data: [],
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 1,
+        backgroundColor: "transparent",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 2,
       },
     ],
   },
   options: {
     scales: {
+      x: {
+        ticks: {
+          color: "rgba(255, 255, 255, 1)",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+        title: {
+          display: true,
+          text: "Days",
+          color: "rgba(54, 162, 235, 1)",
+          font: {
+            size: 16,
+            weight: "bold",
+          },
+        },
+      },
       y: {
-        beginAtZero: true,
+        ticks: {
+          color: "rgba(75, 192, 192, 1)",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+        title: {
+          display: true,
+          text: "Chance Of Rain (%)",
+          color: "rgba(75, 192, 192, 1)",
+          font: {
+            size: 16,
+            weight: "bold",
+          },
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: "rgba(75, 192, 192, 1)",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
       },
     },
   },
@@ -54,8 +98,8 @@ async function getWeather(city) {
     );
     let secondResult = await firstResult.json();
     finalResult = secondResult;
+    console.log(finalResult);
     displayBackGrounds();
-
     clear(finalResult);
     display();
   } catch (error) {}
@@ -66,13 +110,10 @@ async function getCountryData(countryName) {
       `https://restcountries.com/v3.1/name/${countryName}`
     );
     let countryData = await response.json();
-    // Print country data to console
     flag = countryData[0].flags.png;
     flagImg.src = flag;
   } catch (error) {}
 }
-
-// Example usage
 
 https: function clear(finalResult) {
   chanceOfRainChart.data.datasets[0].data = [];
@@ -90,7 +131,7 @@ https: function clear(finalResult) {
 
   let date = new Date();
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < finalResult.forecast.forecastday.length; i++) {
     let dayIndex = (date.getDay() + i) % 7;
     chanceOfRainChart.data.labels.push(weekday[dayIndex].slice(0, 3));
     chanceOfRainChart.data.datasets[0].data.push(
@@ -216,6 +257,7 @@ function display() {
     getCountryData(finalResult.location.country);
   }
 }
+
 button.addEventListener("click", () => {
   navigator.geolocation.getCurrentPosition((position) => {
     const { latitude, longitude } = position.coords;
@@ -228,7 +270,6 @@ button.addEventListener("click", () => {
       .catch((error) => {});
   });
 });
-getWeather("london");
 
 const backgrounds = {
   Clear: 0,
@@ -258,3 +299,5 @@ function displayBackGrounds() {
     }
   }
 }
+getWeather("russia");
+
