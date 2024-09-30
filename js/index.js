@@ -94,11 +94,10 @@ var chanceOfRainChart = new Chart(ctx, {
 async function getWeather(city) {
   try {
     let firstResult = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=90a31f2dc638433db7a111805241106&q=${city}&days=7`
+      `https://api.weatherapi.com/v1/forecast.json?key=90a31f2dc638433db7a111805241106&q=${city}&days=3`
     );
     let secondResult = await firstResult.json();
     finalResult = secondResult;
-    console.log(finalResult);
     displayBackGrounds();
     clear(finalResult);
     display();
@@ -106,14 +105,36 @@ async function getWeather(city) {
 }
 async function getCountryData(countryName) {
   try {
+    let translatedNameResponse = await fetch(
+      `https://nominatim.openstreetmap.org/search?country=${countryName}&format=json&accept-language=en`
+    );
+    let translatedNameData = await translatedNameResponse.json();
+    
+    if (translatedNameData.length > 0) {
+      countryName = translatedNameData[0].display_name.split(',').pop().trim();
+    }
+
     let response = await fetch(
       `https://restcountries.com/v3.1/name/${countryName}`
     );
     let countryData = await response.json();
-    flag = countryData[0].flags.png;
+    
+    let flag = countryData[0].flags.png;
     flagImg.src = flag;
-  } catch (error) {}
+  } catch (error) {
+  }
 }
+// async function getCountryData(countryName) {
+//   try {
+//     let response = await fetch(
+//       `https://restcountries.com/v3.1/name/${countryName}`
+//     );
+//     let countryData = await response.json();
+//     flag = countryData[0].flags.png;
+//     flagImg.src = flag;
+//   } catch (error) {}
+// }
+
 
 https: function clear(finalResult) {
   chanceOfRainChart.data.datasets[0].data = [];
