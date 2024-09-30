@@ -103,37 +103,37 @@ async function getWeather(city) {
     display();
   } catch (error) {}
 }
-async function getCountryData(countryName) {
-  try {
-    let translatedNameResponse = await fetch(
-      `https://nominatim.openstreetmap.org/search?country=${countryName}&format=json&accept-language=en`
-    );
-    let translatedNameData = await translatedNameResponse.json();
-    
-    if (translatedNameData.length > 0) {
-      countryName = translatedNameData[0].display_name.split(',').pop().trim();
-    }
-
-    let response = await fetch(
-      `https://restcountries.com/v3.1/name/${countryName}`
-    );
-    let countryData = await response.json();
-    
-    let flag = countryData[0].flags.png;
-    flagImg.src = flag;
-  } catch (error) {
-  }
-}
 // async function getCountryData(countryName) {
 //   try {
+//     let translatedNameResponse = await fetch(
+//       `https://nominatim.openstreetmap.org/search?country=${countryName}&format=json&accept-language=en`
+//     );
+//     let translatedNameData = await translatedNameResponse.json();
+    
+//     if (translatedNameData.length > 0) {
+//       countryName = translatedNameData[0].display_name.split(',').pop().trim();
+//     }
+
 //     let response = await fetch(
 //       `https://restcountries.com/v3.1/name/${countryName}`
 //     );
 //     let countryData = await response.json();
-//     flag = countryData[0].flags.png;
+    
+//     let flag = countryData[0].flags.png;
 //     flagImg.src = flag;
-//   } catch (error) {}
+//   } catch (error) {
+//   }
 // }
+async function getCountryData(countryName) {
+  try {
+    let response = await fetch(
+      `https://restcountries.com/v3.1/name/${countryName}`
+    );
+    let countryData = await response.json();
+    flag = countryData[0].flags.png;
+    flagImg.src = flag;
+  } catch (error) {}
+}
 
 
 https: function clear(finalResult) {
