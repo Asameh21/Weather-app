@@ -27,11 +27,15 @@ let button = document.querySelector("button");
 var chanceOfRainChart = new Chart(ctx, {
   type: "line",
   data: {
+    labels: [],
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
       {
         label: "Chance Of Rain",
         data: [],
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 1,
         backgroundColor: "transparent",
         borderColor: "rgba(54, 162, 235, 1)",
         borderWidth: 2,
@@ -59,6 +63,7 @@ var chanceOfRainChart = new Chart(ctx, {
         },
       },
       y: {
+        beginAtZero: true,
         ticks: {
           color: "rgba(75, 192, 192, 1)",
           font: {
@@ -94,48 +99,29 @@ var chanceOfRainChart = new Chart(ctx, {
 async function getWeather(city) {
   try {
     let firstResult = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=90a31f2dc638433db7a111805241106&q=${city}&days=3`
+      `https://api.weatherapi.com/v1/forecast.json?key=90a31f2dc638433db7a111805241106&q=${city}&days=7`
     );
     let secondResult = await firstResult.json();
     finalResult = secondResult;
+    console.log(finalResult);
     displayBackGrounds();
     clear(finalResult);
     display();
   } catch (error) {}
 }
-// async function getCountryData(countryName) {
-//   try {
-//     let translatedNameResponse = await fetch(
-//       `https://nominatim.openstreetmap.org/search?country=${countryName}&format=json&accept-language=en`
-//     );
-//     let translatedNameData = await translatedNameResponse.json();
-    
-//     if (translatedNameData.length > 0) {
-//       countryName = translatedNameData[0].display_name.split(',').pop().trim();
-//     }
-
-//     let response = await fetch(
-//       `https://restcountries.com/v3.1/name/${countryName}`
-//     );
-//     let countryData = await response.json();
-    
-//     let flag = countryData[0].flags.png;
-//     flagImg.src = flag;
-//   } catch (error) {
-//   }
-// }
 async function getCountryData(countryName) {
   try {
     let response = await fetch(
       `https://restcountries.com/v3.1/name/${countryName}`
     );
     let countryData = await response.json();
+    // Print country data to console
     flag = countryData[0].flags.png;
     flagImg.src = flag;
   } catch (error) {}
 }
 
-
+// Example usage
 https: function clear(finalResult) {
   chanceOfRainChart.data.datasets[0].data = [];
   chanceOfRainChart.data.labels = [];
@@ -152,6 +138,7 @@ https: function clear(finalResult) {
 
   let date = new Date();
 
+  for (let i = 0; i < 7; i++) {
   for (let i = 0; i < finalResult.forecast.forecastday.length; i++) {
     let dayIndex = (date.getDay() + i) % 7;
     chanceOfRainChart.data.labels.push(weekday[dayIndex].slice(0, 3));
@@ -278,7 +265,6 @@ function display() {
     getCountryData(finalResult.location.country);
   }
 }
-
 button.addEventListener("click", () => {
   navigator.geolocation.getCurrentPosition((position) => {
     const { latitude, longitude } = position.coords;
@@ -291,6 +277,7 @@ button.addEventListener("click", () => {
       .catch((error) => {});
   });
 });
+getWeather("london");
 
 const backgrounds = {
   Clear: 0,
