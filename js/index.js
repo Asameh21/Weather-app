@@ -105,6 +105,7 @@ async function getWeather(city) {
     displayBackGrounds();
     clear(finalResult);
     display();
+    
     // Fetch country flag after weather data is fetched
     getCountryFlag(finalResult.location.country);
   } catch (error) {
@@ -194,9 +195,12 @@ function display() {
   }
 
   country.innerHTML = finalResult.location.country;
-  if (finalResult.location.region) {
+  if (finalResult.location.name) {
+    cityName.innerHTML = `, ${finalResult.location.name}`;
+  } else if (finalResult.location.region){
     cityName.innerHTML = `, ${finalResult.location.region}`;
-  } else {
+  }
+  else{
     cityName.innerHTML = "";
   }
 
@@ -317,4 +321,4 @@ function displayBackGrounds() {
 }
 
 // Initial Load
-getWeather("russia");
+getWeather("palestine");
