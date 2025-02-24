@@ -1,7 +1,6 @@
+// DOM Elements
 let flagImg = document.querySelector(".country-name img");
-let backgroundImages = Array.from(
-  document.querySelectorAll(".background-images img")
-);
+let backgroundImages = Array.from(document.querySelectorAll(".background-images img"));
 let loadingPage = document.querySelector(".loading-page");
 let home = document.getElementById("home-page");
 let input = document.querySelector("form input");
@@ -24,18 +23,16 @@ let progressText = document.querySelector(".progress-text");
 let progressCircleTwo = document.querySelector(".progress-circle-two");
 let progressTextTwo = document.querySelector(".progress-text-two");
 let button = document.querySelector("button");
+
+// Chart Initialization
 var chanceOfRainChart = new Chart(ctx, {
   type: "line",
   data: {
     labels: [],
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
       {
         label: "Chance Of Rain",
         data: [],
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 1,
         backgroundColor: "transparent",
         borderColor: "rgba(54, 162, 235, 1)",
         borderWidth: 2,
@@ -96,6 +93,7 @@ var chanceOfRainChart = new Chart(ctx, {
   },
 });
 
+// Fetch Weather Data
 async function getWeather(city) {
   try {
     let firstResult = await fetch(
@@ -107,22 +105,29 @@ async function getWeather(city) {
     displayBackGrounds();
     clear(finalResult);
     display();
-  } catch (error) {}
+    // Fetch country flag after weather data is fetched
+    getCountryFlag(finalResult.location.country);
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+  }
 }
-async function getCountryData(countryName) {
+
+// Fetch Country Flag
+async function getCountryFlag(countryName) {
   try {
     let response = await fetch(
       `https://restcountries.com/v3.1/name/${countryName}`
     );
     let countryData = await response.json();
-    // Print country data to console
-    flag = countryData[0].flags.png;
+    let flag = countryData[0].flags.png;
     flagImg.src = flag;
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error fetching country data:", error);
+  }
 }
 
-// Example usage
-https: function clear(finalResult) {
+// Clear Chart Data
+function clear(finalResult) {
   chanceOfRainChart.data.datasets[0].data = [];
   chanceOfRainChart.data.labels = [];
 
@@ -138,7 +143,6 @@ https: function clear(finalResult) {
 
   let date = new Date();
 
-  for (let i = 0; i < 7; i++) {
   for (let i = 0; i < finalResult.forecast.forecastday.length; i++) {
     let dayIndex = (date.getDay() + i) % 7;
     chanceOfRainChart.data.labels.push(weekday[dayIndex].slice(0, 3));
@@ -150,7 +154,8 @@ https: function clear(finalResult) {
   chanceOfRainChart.update();
 }
 
-let type = input.addEventListener("input", () => {
+// Handle Input Changes
+input.addEventListener("input", () => {
   if (input.value.length !== 0) {
     placeHolder.classList.add("d-none");
     placeHolder.classList.remove("d-block");
@@ -163,6 +168,7 @@ let type = input.addEventListener("input", () => {
   }
 });
 
+// Display Weather Data
 function display() {
   const weekday = [
     "Sunday",
@@ -181,104 +187,105 @@ function display() {
     daysNames[i].innerHTML = weekday[dayIndex].slice(0, 3);
     icons[i].setAttribute(
       "src",
-      `https://${finalResult.forecast.forecastday[i].day.condition.icon}`
+      `https:${finalResult.forecast.forecastday[i].day.condition.icon}`
     );
-    maxTemp[i + 1].innerHTML = `${
-      finalResult.forecast.forecastday[i + 1].day.maxtemp_c
-    }&deg;`;
-    maxTemp[0].innerHTML = `${finalResult.current.temp_c}&deg;`;
-    minTemp[i + 1].innerHTML = `${
-      finalResult.forecast.forecastday[i + 1].day.mintemp_c
-    }&deg;`;
-    minTemp[0].innerHTML = `${finalResult.forecast.forecastday[0].day.mintemp_c}&deg;`;
-    country.innerHTML = finalResult.location.country;
-    if (finalResult.location.region) {
-      cityName.innerHTML = `, ${finalResult.location.region}`;
-    } else {
-      cityName.innerHTML = "";
-    }
-
-    let hours = date.getHours();
-    let minutes =
-      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
-    let meridiem = hours >= 12 ? "PM" : "AM";
-    const progress = finalResult.forecast.forecastday[0].hour[0].humidity;
-
-    const radius = progressCircle.r.baseVal.value;
-    const circumference = 2 * Math.PI * radius;
-    const offset = circumference * (1 - progress / 100);
-
-    if (progress > 50 && progress < 90) {
-      progressCircle.style.cssText = "stroke: #afac4c;";
-    } else if (progress >= 90) {
-      progressCircle.style.cssText = "stroke: #c51010;";
-    } else {
-      progressCircle.style.cssText = "stroke: #4caf50;";
-    }
-
-    progressCircle.style.strokeDasharray = `${circumference}`;
-    progressCircle.style.strokeDashoffset = `${offset}`;
-    progressText.innerHTML = `${progress}%`;
-    const progressTow = finalResult.forecast.forecastday[0].hour[0].cloud;
-    if (progressTow > 50 && progressTow < 90) {
-      progressCircleTwo.style.cssText = "stroke: #afac4c;";
-    } else if (progressTow >= 90) {
-      progressCircleTwo.style.cssText = "stroke: #c51010;";
-    } else {
-      progressCircleTwo.style.cssText = "stroke: #4caf50;";
-    }
-    const radiusTwo = progressCircle.r.baseVal.value;
-    const circumferenceTwo = 2 * Math.PI * radiusTwo;
-    const offsetTwo = circumference * (1 - progressTow / 100);
-    progressCircleTwo.style.strokeDasharray = `${circumferenceTwo}`;
-    progressCircleTwo.style.strokeDashoffset = `${offsetTwo}`;
-    progressTextTwo.innerHTML = `${progressTow}%`;
-
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    dayTime.innerHTML = `${date.getDate()}${monthNames[date.getMonth()].slice(
-      0,
-      3
-    )}`;
-    sunrise.innerHTML = finalResult.forecast.forecastday[0].astro.sunrise;
-    sunset.innerHTML = finalResult.forecast.forecastday[0].astro.sunset;
-    pressure.innerHTML =
-      finalResult.forecast.forecastday[0].hour[0].pressure_mb;
-    humidity.innerHTML =
-      finalResult.forecast.forecastday[0].hour[1].condition.text;
-    loadingPage.style.cssText = "opacity : 0;  visibility: hidden;";
-    getCountryData(finalResult.location.country);
+    maxTemp[i].innerHTML = `${finalResult.forecast.forecastday[i].day.maxtemp_c}&deg;`;
+    minTemp[i].innerHTML = `${finalResult.forecast.forecastday[i].day.mintemp_c}&deg;`;
   }
+
+  country.innerHTML = finalResult.location.country;
+  if (finalResult.location.region) {
+    cityName.innerHTML = `, ${finalResult.location.region}`;
+  } else {
+    cityName.innerHTML = "";
+  }
+
+  let hours = date.getHours();
+  let minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+  let meridiem = hours >= 12 ? "PM" : "AM";
+  const progress = finalResult.forecast.forecastday[0].hour[0].humidity;
+
+  const radius = progressCircle.r.baseVal.value;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * (1 - progress / 100);
+
+  if (progress > 50 && progress < 90) {
+    progressCircle.style.cssText = "stroke: #afac4c;";
+  } else if (progress >= 90) {
+    progressCircle.style.cssText = "stroke: #c51010;";
+  } else {
+    progressCircle.style.cssText = "stroke: #4caf50;";
+  }
+
+  progressCircle.style.strokeDasharray = `${circumference}`;
+  progressCircle.style.strokeDashoffset = `${offset}`;
+  progressText.innerHTML = `${progress}%`;
+
+  const progressTow = finalResult.forecast.forecastday[0].hour[0].cloud;
+  if (progressTow > 50 && progressTow < 90) {
+    progressCircleTwo.style.cssText = "stroke: #afac4c;";
+  } else if (progressTow >= 90) {
+    progressCircleTwo.style.cssText = "stroke: #c51010;";
+  } else {
+    progressCircleTwo.style.cssText = "stroke: #4caf50;";
+  }
+
+  const radiusTwo = progressCircleTwo.r.baseVal.value;
+  const circumferenceTwo = 2 * Math.PI * radiusTwo;
+  const offsetTwo = circumferenceTwo * (1 - progressTow / 100);
+  progressCircleTwo.style.strokeDasharray = `${circumferenceTwo}`;
+  progressCircleTwo.style.strokeDashoffset = `${offsetTwo}`;
+  progressTextTwo.innerHTML = `${progressTow}%`;
+
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  dayTime.innerHTML = `${date.getDate()} ${monthNames[date.getMonth()].slice(0, 3)}`;
+  sunrise.innerHTML = finalResult.forecast.forecastday[0].astro.sunrise;
+  sunset.innerHTML = finalResult.forecast.forecastday[0].astro.sunset;
+  pressure.innerHTML = finalResult.forecast.forecastday[0].hour[0].pressure_mb;
+  humidity.innerHTML = finalResult.forecast.forecastday[0].hour[0].humidity;
+  loadingPage.style.cssText = "opacity : 0;  visibility: hidden;";
 }
+
+// Current Location Button
 button.addEventListener("click", () => {
   navigator.geolocation.getCurrentPosition((position) => {
     const { latitude, longitude } = position.coords;
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-    fetch(url)
+
+    fetch(url, {
+      headers: {
+        'Accept-Language': 'en', // Request data in English
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        getWeather(data.address.city);
+        const city = data.address.city || data.address.town || data.address.village || data.address.hamlet;
+        console.log(data)
+        getWeather(city);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.error("Error fetching location data:", error);
+      });
   });
 });
-getWeather("london");
 
+// Background Images Mapping
 const backgrounds = {
   Clear: 0,
   Cloudy: 1,
@@ -295,6 +302,7 @@ const backgrounds = {
 
 let New = new Map(Object.entries(backgrounds));
 
+// Display Background Images
 function displayBackGrounds() {
   for (let x of New) {
     let text = finalResult.forecast.forecastday[0].hour[1].condition.text;
@@ -307,4 +315,6 @@ function displayBackGrounds() {
     }
   }
 }
+
+// Initial Load
 getWeather("russia");
